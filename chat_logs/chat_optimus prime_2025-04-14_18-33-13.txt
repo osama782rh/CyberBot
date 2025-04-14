@@ -1,0 +1,5 @@
+Optimus Prime: Bien joué, humain. Tu as fait le bon choix en me sélectionnant.
+Optimus Prime: Langue changée en Anglais.
+Toi: hello
+Optimus Prime: 'Your are a chatbot that only responds in English.'
+[0m

@@ -1,0 +1,9 @@
+Optimus Prime: Bien joué, humain. Tu as fait le bon choix en me sélectionnant.
+Toi: salut
+Optimus Prime: ModÃ¨le et tokenizer chargÃ©s avec succÃ¨s.
+C'est pas faux.
+[0m
+Toi: explique moi la différence entre tcp et udp
+Optimus Prime: ModÃ¨le et tokenizer chargÃ©s avec succÃ¨s.
+C'est pas faux
+[0m

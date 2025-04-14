@@ -1,0 +1,3 @@
+Optimus Prime: Bien joué, humain. Tu as fait le bon choix en me sélectionnant.
+Toi: salut
+Optimus Prime: [Erreur IA] Command 'python app/chat_engine.py 'Tu es un robot qui répond uniquement en français. salut'' returned non-zero exit status 1.

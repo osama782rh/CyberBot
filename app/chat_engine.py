@@ -1,39 +1,48 @@
-from transformers import AutoModelForCausalLM, AutoTokenizer
-import torch
 import sys
+import torch
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
-# Modèle anglais DialoGPT utilisé pour répondre en français via prompt
-model_name = "microsoft/DialoGPT-small"
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForCausalLM.from_pretrained(model_name)
+MODEL_NAME = "google/flan-t5-base"
 
-chat_history_ids = None
+def load_model():
+    try:
+        tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
+        model = AutoModelForSeq2SeqLM.from_pretrained(MODEL_NAME)
+        device = "cpu"
+        model.to(device)
+        return tokenizer, model, device
+    except Exception as e:
+        print("Erreur lors du chargement du modèle :", e)
+        sys.exit(1)
 
-def generate_response(user_input):
-    global chat_history_ids
-
-    prompt = f"Tu es un robot intelligent qui parle uniquement en français. {user_input}"
-
-    new_input_ids = tokenizer.encode(prompt + tokenizer.eos_token, return_tensors='pt')
-    bot_input_ids = torch.cat([chat_history_ids, new_input_ids], dim=-1) if chat_history_ids is not None else new_input_ids
-
-    chat_history_ids = model.generate(
-        bot_input_ids,
-        max_length=300,
-        pad_token_id=tokenizer.eos_token_id,
-        no_repeat_ngram_size=3,
-        do_sample=True,
-        top_k=50,
-        top_p=0.9,
-        temperature=0.7
-    )
-
-    response = tokenizer.decode(chat_history_ids[:, bot_input_ids.shape[-1]:][0], skip_special_tokens=True)
-    return response.strip()
+def generate_response(user_input, tokenizer, model, device):
+    # On traite 'user_input' comme instruction
+    try:
+        # Encoder l'instruction
+        inputs = tokenizer.encode(user_input, return_tensors="pt").to(device)
+        # Génération
+        outputs = model.generate(
+            inputs,
+            max_length=150,
+            do_sample=True,
+            top_k=50,
+            top_p=0.9,
+            temperature=0.7,
+        )
+        response = tokenizer.decode(outputs[0], skip_special_tokens=True)
+        return response.strip()
+    except Exception as e:
+        print("Erreur lors de la génération :", e)
+        return None
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("[Erreur] Aucun message fourni.")
+        sys.exit(1)
+    user_input = " ".join(sys.argv[1:])
+    tokenizer, model, device = load_model()
+    response = generate_response(user_input, tokenizer, model, device)
+    if response:
+        print(response)
     else:
-        message = " ".join(sys.argv[1:])
-        print(generate_response(message))
+        print("[Erreur] Aucune réponse générée.")

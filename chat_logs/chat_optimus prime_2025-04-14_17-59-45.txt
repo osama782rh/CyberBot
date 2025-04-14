@@ -1,0 +1,10 @@
+Optimus Prime: Bien joué, humain. Tu as fait le bon choix en me sélectionnant.
+Toi: salut
+Optimus Prime: Modèle et tokenizer chargés avec succès.
+Tu es un bot
+Toi: çava ?
+Optimus Prime: Modèle et tokenizer chargés avec succès.
+Et a pas le faire?
+Toi: comment tu vas ?
+Optimus Prime: Modèle et tokenizer chargés avec succès.
+Ah j'y suis dire.

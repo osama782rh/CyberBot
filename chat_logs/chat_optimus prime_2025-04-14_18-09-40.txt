@@ -1,0 +1,7 @@
+Optimus Prime: Bien joué, humain. Tu as fait le bon choix en me sélectionnant.
+Toi: salut
+Optimus Prime: 'You are a robot who responds only in french. salut'
+[0m
+Toi: hello
+Optimus Prime: 'You are a robot that responds only in french.'
+[0m
